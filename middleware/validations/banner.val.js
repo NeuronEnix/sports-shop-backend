@@ -2,7 +2,7 @@ const Joi = require( '@hapi/joi' ) ;
 const { commonSchema } = require("./common.val");
 const bannerSchema = {
     img : Joi.string().trim().min( 1 ).max( 50 ).required(),
-    page
+    pageNo: commonSchema.pageNo,
 } ;
 
 const banner = {

@@ -29,9 +29,20 @@ const validator = {
     }, 
 
     banner : {
-        add  : ( req, res, next ) => { validate( req, res, next, banner.add  ) },
-        get : ( req, res, next ) => { validate( req, res, next, banner.get ) }
-    }
+        add : ( req, res, next ) => { validate( req, res, next, banner.add ) },
+        get : ( req, res, next ) => { validate( req, res, next, banner.get ) },
+    },
+
+    item : {
+        add : ( req, res, next ) => { validate( req, res, next, item.add ) },
+        get : ( req, res, next ) => { validate( req, res, next, item.get ) },
+    },
+
+    order : {
+        add    : ( req, res, next ) => { validate( req, res, next, order.add ) },
+        get    : ( req, res, next ) => { validate( req, res, next, order.get ) },
+        detail : ( req, res, next ) => { validate( req, res, next, order.get ) },
+    },
     
 }
 
