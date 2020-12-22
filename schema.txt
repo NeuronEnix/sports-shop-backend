@@ -13,8 +13,10 @@ banners : {
 
 items : {
     _id:
+    user_id:
     name:
     type:
+    img:
     details:{
         colors:
         sizes:

@@ -1,9 +1,5 @@
-const { item }     = require( "./validations/item.val") ;
-const { sale }     = require( "./validations/sale.val") ;
 const { user }     = require( "./validations/user.val") ;
-const { seller }   = require( "./validations/seller.val") ;
-const { purchase } = require( "./validations/purchase.val") ;
-
+const { banner } = require("./validations/banner.val");
 const respond = require( '../response' ) ;
 const errData = respond.errData ;
 
@@ -32,6 +28,11 @@ const validator = {
         signOut : ( req, res, next ) => { validate( req, res, next, user.signOut ) },
     }, 
 
+    banner : {
+        add  : ( req, res, next ) => { validate( req, res, next, banner.add  ) },
+        get : ( req, res, next ) => { validate( req, res, next, banner.get ) }
+    }
+    
 }
 
 module.exports = { validator };

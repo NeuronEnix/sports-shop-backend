@@ -10,7 +10,7 @@ mongoose.set( 'useUnifiedTopology' , true  ) ;
 mongoose.set( 'autoIndex'          , true  ) ;
 
 // Importing schema 
-require( './app/user/user.model.js'         ) ;
+require( './app/user/user.model.js' ) ;
 
 // Connects to DB
 module.exports.connect = () => {
