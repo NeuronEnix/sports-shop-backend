@@ -1,0 +1,35 @@
+users : {
+    _id:
+    name:
+    type:
+    email:
+}
+
+banners : {
+    _id:
+    img: raw data
+    status: 'a'( active ) || 'd' ( disabled )
+}
+
+items : {
+    _id:
+    name:
+    type:
+    details:{
+        colors:
+        sizes:
+    }
+    tag:
+}
+
+orders : {
+    _id:
+    user_id:
+    status:
+    items : [{}....,
+        {
+            item_id:
+            details: { ... }
+        },
+    ....{} ]
+}
