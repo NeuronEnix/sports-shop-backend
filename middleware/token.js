@@ -75,7 +75,7 @@ module.exports.verifyToken = ( req, res, next ) => {
 }
 
 module.exports.genAccessToken = async ( userDoc ) => {
-    const payload = { uid:userDoc._id, utyp:userDoc.Type }
+    const payload = { uid:userDoc._id, utyp:userDoc.type }
     return jwt.sign( payload, ACCESS_TOKEN.KEY, { expiresIn : ACCESS_TOKEN.EXPIRY  } ) ; 
 }
 
