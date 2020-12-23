@@ -27,7 +27,7 @@ module.exports.CONFIG = {
     
         ACCESS_TOKEN : {
             KEY : "ADD_ACCESS_TOKEN_KEY",
-            EXPIRY : "15s",
+            EXPIRY : "1d",
         },
 
     }

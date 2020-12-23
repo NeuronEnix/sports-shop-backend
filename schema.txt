@@ -17,11 +17,17 @@ items : {
     name:
     type:
     img:
-    details:{
-        colors:
-        sizes:
+    tags: [ "casual", "trendy", "sports" ],
+    size_identifier_qty: { //identifier -> { in shoes: "color", in t-shirts: "teamNum" }
+        "2" : { 
+            "red": 10,
+            "brown": 30
+        },
+        "4" : {
+            "yellow": 10,
+            "orange": 30 
+        }
     }
-    tag:
 }
 
 orders : {
