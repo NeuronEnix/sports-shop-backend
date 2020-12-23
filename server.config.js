@@ -14,7 +14,7 @@ module.exports.CONFIG = {
 
     ACCESSIBLE_URL : {
         NON_ADMIN_URL : new Set( [] ),
-        NO_TOKEN_REQUIRED_URL : new Set( [ '/user/sign-in', '/user/sign-out', '/token/acc-tok', '/token/ref-tok', ] )
+        NO_TOKEN_REQUIRED_URL : new Set( [ '/user/sign-up','/user/sign-in', '/user/sign-out', '/token/acc-tok', '/token/ref-tok', ] )
     },
     
     TOKEN : {

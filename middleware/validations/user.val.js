@@ -13,7 +13,7 @@ const user = {
         name : userSchema.name,
         email : userSchema.email,
         pass : userSchema.pass,
-        Type : userSchema.type,
+        type : userSchema.type,
     }),
     
     signIn : Joi.object({

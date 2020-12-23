@@ -8,9 +8,9 @@ var userSchema = new mongoose.Schema ({
     email    : { type : String, index: { unique: true } },
     pass : String,
     name : String,
-    TS       : Date, // RefreshToken creation time
-    Type     : { type : String, default: 'e' },     // 'a' -> admin  ; 'e' -> employee
-    Status   : { type : String, default :'a' },     // 'a' -> active ; 'd' -> disabled
+    ts       : Date, // RefreshToken creation time
+    type     : { type : String, default: 'e' },     // 'a' -> admin  ; 'e' -> employee
+    status   : { type : String, default :'a' },     // 'a' -> active ; 'd' -> disabled
 });
 
 userSchema.statics.AddNewUser = async ( userData ) => {
@@ -27,7 +27,7 @@ userSchema.statics.AddNewUser = async ( userData ) => {
 }
 
 userSchema.statics.SignIn = async ( { email, pass } ) => {
-    const user = await User.findOne( { email } , { pass:1, Type:1 } ) ;
+    const user = await User.findOne( { email } , { pass:1, type:1 } ) ;
     if ( user ) {
         const passMatched = await bcrypt.compare( pass, user.pass ) ;
         if ( passMatched ) {
