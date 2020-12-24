@@ -32,10 +32,22 @@ module.exports.listItem = async( req, res) => {
         return respond.ok( res, itemDocs );
 }
 
-module.exports.getImg = async ( req, res ) => {
-    const imgPath = __dirname + `\\img\\${req.query.itemName}.png`;
-    if ( fs.existsSync( imgPath ) )
-        return res.sendFile( imgPath );
-    else
-        return respond.err( res, {err: respond.errData.resNotFound, info: `Image Not Found: ${req.query.itemName}` } );
-}   
+module.exports.getImgLink = async ( req, res ) => {
+    const itemName = req.query.name;
+    const imgPath = __dirname + "\\img\\" + itemName + ".png";
+    
+    if( fs.existsSync( imgPath ))
+        return respond.ok( res, `${req.connection.localAddress}:${req.connection.localPort}/item/img/${itemName}.png` )   ;
+    return respond.err( res, { err: respond.errData.resNotFound } );
+}
+
+module.exports.detail = async ( req, res ) => {
+    const itemName = req.query.name;
+    
+    const itemDetail = await Item.findOne( 
+        { name:itemName, status:'a' },
+        { _id:0, size_identifier_qty:1 }
+    );
+
+    return respond.ok( res, itemDetail );
+}

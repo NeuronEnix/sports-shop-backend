@@ -15,18 +15,19 @@ const fileFilter = ( req, file, cb ) => {
     return cb( null, false );
 }
    
-var upload = multer({
+var upload = multer( {
     storage: storage,
-    limits:{ fileSize: 1024 * 1024 * 10 },// fileSize: 10MB (limit)
+    limits: { fileSize: 1024 * 1024 * 10 },// fileSize: 10MB (limit)
     fileFilter: fileFilter
- }); 
+ } ) ; 
 
 const item = require( './item.controller' ) ;
 
 router.post( '/add', upload.single( "img" ), item.addItem ) ;
 
-router.get(  '/img', item.getImg ) ;
-router.get(  '/list', item.listItem ) ;
+router.get( '/list'    , item.listItem   ) ;
+router.get( '/detail'  , item.detail     ) ;
+router.get( '/img-link', item.getImgLink ) ;
 
 
 module.exports.router = router;
