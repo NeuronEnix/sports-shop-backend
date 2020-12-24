@@ -25,6 +25,7 @@ const item = require( './item.controller' ) ;
 
 router.post( '/add', upload.single( "img" ), item.addItem ) ;
 
+router.get(  '/img', item.getImg ) ;
 router.get(  '/list', item.listItem ) ;
 
 
