@@ -4,7 +4,6 @@ const Token = require( '../../middleware/token' ) ;
 
 module.exports.signUp = async ( req, res ) => {
     const userData  = req.body ;
-    userData.UserID = req.UserID ;  // UserID of the person creating this account
     await User.AddNewUser( userData ) ;
     respond.ok( res ) ;
 }

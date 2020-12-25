@@ -17,7 +17,6 @@ const app = express() ;
 const corsOptions = {
     origin: [ 'http://localhost:3000', 'http://192.168.225.4:3000' ],
     credentials: true,
-
 }
 
 app.use( cookieParser(), cors( corsOptions ), express.json() ) ;
