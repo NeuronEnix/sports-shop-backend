@@ -3,6 +3,12 @@ users : {
     name:
     type:
     email:
+    cart : [
+        {
+            item_id:
+            size_identifier_qty: { ... }
+        }
+    ]
 }
 
 banners : {
@@ -34,10 +40,10 @@ orders : {
     _id:
     user_id:
     status:
-    items : [{}....,
+    items : [
         {
             item_id:
             details: { ... }
-        },
-    ....{} ]
+        }
+    ]
 }

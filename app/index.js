@@ -9,4 +9,10 @@ router.use( '/banner', banner.router ) ;
 const item = require("./item/item.router")
 router.use( '/item', item.router ) ;
 
+const cart = require("./cart/cart.router")
+router.use( '/cart', cart.router ) ;
+
+const order = require("./order/order.router")
+router.use( '/order', order.router ) ;
+
 module.exports.router = router ;

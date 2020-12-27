@@ -27,7 +27,7 @@ module.exports.listItem = async( req, res) => {
     if( req.query.tag ) filter.tags = { $in : req.query.tag }
     console.log( filter );
     const itemDocs = await Item.find( 
-       filter, { name:1, size_identifier_qty:1 } ).skip( req.query.pageNo*10 ).limit( 10 );
+       filter, { _id:0, name:1, size_identifier_qty:1 } ).sort({name:1}).skip( req.query.pageNo*10 ).limit( 10 );
     
         return respond.ok( res, itemDocs );
 }

@@ -5,12 +5,13 @@ const errData  = require( '../../response.js' ).errData ;
 const { BCRYPT } = require( '../../server.config').CONFIG ;
 
 var userSchema = new mongoose.Schema ({
-    email    : { type : String, index: { unique: true } },
+    email : { type : String, index: { unique: true } },
     pass : String,
     name : String,
-    ts       : Date, // RefreshToken creation time
-    type     : { type : String, default: 'e' },     // 'a' -> admin  ; 'e' -> employee
-    status   : { type : String, default :'a' },     // 'a' -> active ; 'd' -> disabled
+    ts : Date, // RefreshToken creation time
+    cart : {},
+    type : { type : String, default: 'e' },     // 'a' -> admin  ; 'e' -> employee
+    status : { type : String, default :'a' },     // 'a' -> active ; 'd' -> disabled
 });
 
 userSchema.statics.AddNewUser = async ( userData ) => {
