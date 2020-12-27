@@ -10,6 +10,7 @@ var userSchema = new mongoose.Schema ({
     name : String,
     ts : Date, // RefreshToken creation time
     cart : {},
+    contact:String,
     type : { type : String, default: 'e' },     // 'a' -> admin  ; 'e' -> employee
     status : { type : String, default :'a' },     // 'a' -> active ; 'd' -> disabled
 });
