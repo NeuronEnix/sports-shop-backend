@@ -21,6 +21,7 @@ const corsOptions = {
 
 app.use( cookieParser(), cors( corsOptions ), express.json() ) ;
 app.use( "/item/img", express.static( __dirname+"\\app\\item\\img" ) )
+app.use( "/item/logo", express.static( __dirname+"\\app\\item\\logo" ) )
 app.use( "/banner/img", express.static( __dirname+"\\app\\banner\\img" ) )
 app.use( requestLogger, token.verifyToken, auth.authorize, App.router ) ;
 app.use( respond.errHandler ) ;
