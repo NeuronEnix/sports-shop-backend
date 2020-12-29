@@ -3,9 +3,10 @@ const respond = require( '../../response' ) ;
 const fs = require( "fs" );
 
 module.exports.addItem = async ( req, res ) => {
+    const itemData  = { ...req.body, ...{ user_id:req.UserID } } ;
+    console.log( { itemData })
     if( !req.files )
         return respond.err( res, { err: respond.errData.dbCommitErr, info: "Supports only .png images"} );
-    const itemData  = { ...req.body, ...{ user_id:req.UserID } } ;
     const newItem = new Item();
     Object.assign( newItem, itemData );
     try {
