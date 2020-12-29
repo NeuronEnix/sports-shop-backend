@@ -2,7 +2,8 @@ const router = require( 'express' ).Router() ;
 const multer = require( "multer" );
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "./app/item/img/" );
+        if( file.fieldname == "img") cb(null, "./app/item/img/" );
+        else cb(null, "./app/item/logo/" );
     },
     filename: function (req, file, cb) {
         cb(null, req.body.name + "." + file.mimetype.split("/")[1] );
@@ -22,8 +23,8 @@ var upload = multer( {
  } ) ; 
 
 const item = require( './item.controller' ) ;
-
-router.post( '/add', upload.single( "img" ), item.addItem ) ;
+const uploader = upload.fields([{ name: 'img', maxCount: 1 }, { name: 'logo', maxCount: 1 }])
+router.post( '/add', uploader, item.addItem ) ;
 
 router.get( '/list'    , item.listItem   ) ;
 router.get( '/detail'  , item.detail     ) ;
