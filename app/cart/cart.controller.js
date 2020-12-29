@@ -24,7 +24,7 @@ module.exports.getItem = async ( req, res ) => {
     
 }
 module.exports.buyItem = async ( req, res ) => {
-    const items = req.body;
+    const items = req.body.items;
     const itemDocsToBeSaved = []
     /*
     Format
@@ -70,7 +70,7 @@ module.exports.buyItem = async ( req, res ) => {
         await itemDoc.save();
     })
 
-    Order.CreateOrder( items, req.UserID );
+    Order.CreateOrder( req.body, req.UserID );
     User.findByIdAndUpdate( req.UserID, {cart:{}} )
     return respond.ok( res );
 
