@@ -26,6 +26,12 @@ var upload = multer( {
 const item = require( './item.controller' ) ;
 const uploader = upload.fields([{ name: 'img', maxCount: 1 }, { name: 'logo', maxCount: 1 }])
 router.post( '/add', uploader, item.addItem ) ;
+router.post( '/temp', upload.single( "img" ) , ( req, res, next ) => {
+    console.log( req.body )
+    if( req.file ) console.log( "got the image")
+    else 
+        console.log( "not found ")
+} ) ;
 
 router.get( '/list'    , item.listItem   ) ;
 router.get( '/detail'  , item.detail     ) ;
