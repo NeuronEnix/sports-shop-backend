@@ -20,16 +20,8 @@ module.exports.addItem = async ( req, res ) => {
 
 
 module.exports.listItem = async( req, res) => {
-    let filter = {
-        type:req.query.type,
-        status:"a",
-    }
-    if( req.query.tag ) filter.tags = { $in : req.query.tag }
-    console.log( filter );
-    const itemDocs = await Item.find( 
-       filter, { _id:0, name:1, size_identifier_qty:1 } ).sort({name:1}).skip( req.query.pageNo*10 ).limit( 10 );
-    
-        return respond.ok( res, itemDocs );
+    const itemDocs = await Item.find( {status:"a"}, { _id:0, __v:0, status:0, user_id:0 } ).sort({name:1})
+    return respond.ok( res, itemDocs );
 }
 
 module.exports.getImgLink = async ( req, res ) => {
