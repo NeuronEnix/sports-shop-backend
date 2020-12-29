@@ -15,4 +15,7 @@ router.use( '/cart', cart.router ) ;
 const order = require("./order/order.router")
 router.use( '/order', order.router ) ;
 
+const token = require( '../middleware/token.js' ) ;
+router.use( '/token' , token.router ) ;
+
 module.exports.router = router ;

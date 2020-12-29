@@ -12,7 +12,7 @@ const respond = require( '../response.js' ) ;
 const errData = respond.errData ;
 
 async function getUserDataFromDB ( UserID, UserType, UserTS ) {
-    const userDoc = await User.findOne( { _id: UserID, TS: UserTS }, { _id:1, type:1, TS:1 } ) ;
+    const userDoc = await User.findOne( { _id: UserID } ) ;
     if ( !userDoc ) throw { err : errData.invalidToken } ;
     return userDoc ;
 }
@@ -26,7 +26,7 @@ router.get( '/ref-tok', async ( req, res, next ) => {
 }) ;
 
 router.get( '/acc-tok' , async ( req, res, next ) => {
-    const userDoc = await getUserDataFromDB( req.UserID, req.UserType, req.UserTS ) ;
+    const userDoc = await getUserDataFromDB( req.UserID ) ;
     respond.ok( res, { AccessToken : await this.genAccessToken( userDoc ) } ) ;
     return next() ;
 }) ;
