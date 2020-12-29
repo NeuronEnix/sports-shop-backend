@@ -26,38 +26,47 @@ module.exports.getItem = async ( req, res ) => {
 module.exports.buyItem = async ( req, res ) => {
     const items = req.body;
     const itemDocsToBeSaved = []
+    /*
+    Format
+    items = {
+        "Shoe 1" : { "2": 3, "5": 2 },
+        "Shoe 0": { "1": 10, "7": 12 },
+        "Shoe 2": { "20": 20, "23": 1 }
+    }
+    */
     for( const itemKey of Object.keys( items ) ) {
 
         // get itemKey -> name of item and then get its detail from db
-        const itemDoc = await Item.findOne( { name: itemKey }, {size_identifier_qty:1, name:1} );
+        const itemDoc = await Item.findOne( { name: itemKey }, {size_qty:1, name:1 } );
+
+        // if item not found
+        if( !itemDoc ) return respond.err( res, { err: respond.errData.resNotFound, info: `Item not available: ${itemKey}` } );
+
         // iterate through the sizes items[itemKey] -> should give size as key
         for( const sizeKey of Object.keys( items[itemKey] ) ) {
+            if( !itemDoc.size_qty[ sizeKey ] ) return respond.err( res, { err: respond.errData.resNotFound, info: `Item size not available: ${itemKey}` } );
             
-            for( const identifierKey of Object.keys( items[itemKey][sizeKey] ) ) {
-
-                // iterate through the identifiers items[itemKey][sizeKey] -> should give identifier as key
-                const itemQty = parseInt( items[itemKey][sizeKey][identifierKey] );
-                if( itemQty > itemDoc.size_identifier_qty[sizeKey][identifierKey] )
-                    return respond.err( res, { 
-                        err: respond.errData.notEnoughStock,
-                        info: `Low Stock: ${itemKey}-${sizeKey}-${identifierKey}: avail(${itemDoc.size_identifier_qty[sizeKey][identifierKey]})`
-                    });
+            // items[itemKey] -> should give qty
+            const itemQty = parseInt( items[itemKey][sizeKey] );
+            if( itemQty > itemDoc.size_qty[sizeKey] )
+                return respond.err( res, { 
+                    err: respond.errData.notEnoughStock,
+                    info: `Low Stock: ${itemKey}-${sizeKey}: avail(${itemDoc.size_qty[sizeKey]})`
+                });
+            
+            // Enough Qty is present 
+            
+            itemDoc.size_qty[sizeKey] = 
+            parseInt(itemDoc.size_qty[sizeKey]) - 
+            parseInt( items[itemKey][sizeKey] );
                 
-                // Enough Qty is present 
-                
-                itemDoc.size_identifier_qty[sizeKey][identifierKey] = 
-                parseInt(itemDoc.size_identifier_qty[sizeKey][identifierKey]) - 
-                parseInt( items[itemKey][sizeKey][identifierKey] );
-                
-            }
-
         }
         // push to save later if everything goes well
         itemDocsToBeSaved.push( itemDoc );
     } // all stock check will be done, following lines saves after deducting qty
 
     itemDocsToBeSaved.forEach( async itemDoc => {
-        itemDoc.markModified('size_identifier_qty');
+        itemDoc.markModified('size_qty');
         await itemDoc.save();
     })
 
