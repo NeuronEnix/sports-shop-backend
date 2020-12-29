@@ -37,7 +37,7 @@ module.exports.buyItem = async ( req, res ) => {
     for( const itemKey of Object.keys( items ) ) {
 
         // get itemKey -> name of item and then get its detail from db
-        const itemDoc = await Item.findOne( { name: itemKey }, {size_qty:1, name:1 } );
+        const itemDoc = await Item.findOne( { name: itemKey }, {size_qty:1, name:1, price:1 } );
 
         // if item not found
         if( !itemDoc ) return respond.err( res, { err: respond.errData.resNotFound, info: `Item not available: ${itemKey}` } );
@@ -59,7 +59,9 @@ module.exports.buyItem = async ( req, res ) => {
             itemDoc.size_qty[sizeKey] = 
             parseInt(itemDoc.size_qty[sizeKey]) - 
             parseInt( items[itemKey][sizeKey] );
-                
+
+            // Add Additional content to be stored in order to items
+            items[itemKey].price = itemDoc.price;               
         }
         // push to save later if everything goes well
         itemDocsToBeSaved.push( itemDoc );
