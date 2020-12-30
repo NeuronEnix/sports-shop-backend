@@ -1,9 +1,11 @@
+const util = require("util");
 module.exports.ok = ( resObj, data ) => {
     let res = {
         code : 0,
         data : data
     };
-    console.log( { ID : resObj.ID, time : (Date.now() - resObj._TS) + "ms", res : res, } ) ;
+    console.log( { ID : resObj.ID, time : (Date.now() - resObj._TS) + "ms",  } ) ;
+    console.log( "res: \n", util.inspect( res, { depth:null, colors:true } ) );
     resObj.status( 200 ).send( res ) ;
 }
 

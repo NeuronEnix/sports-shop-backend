@@ -9,7 +9,9 @@ var orderSchema = new mongoose.Schema ({
     city: String,
     user_id : { type : mongoose.Schema.Types.ObjectId, required : true },
     status : { type : Number, default :0 },     // 'a' -> active ; 'd' -> disabled
-});
+},
+{ timestamps: { createdAt:'created_at', updatedAt: 'updated_at'} }
+);
 
 orderSchema.statics.CreateOrder = async ( orderDetails = {}, user_id ) => {
     const orderDoc = new Order();
