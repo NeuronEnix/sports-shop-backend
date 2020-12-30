@@ -1,12 +1,23 @@
 const Order    = require( './order.model' ) ;
+const moment = require("moment");
 const respond = require( '../../response' ) ;
-const { response } = require('express');
 
 module.exports.get = async( req, res) => {
     const user_id = req.UserID;
 
-    const orderDoc = await Order.find( { user_id }, {user_id:0, __v:0, } ).sort({_id:-1});
-    return respond.ok( res, orderDoc)
+    const orderDocs = await Order.find( { user_id }, {user_id:0, __v:0,  } ).sort({_id:-1});
+    const now = moment();
+    orderDocs.forEach( async orderDoc => {
+        if( orderDoc.status > -1 && orderDoc.status < 3 && moment( orderDoc.statusUpdateDates[ orderDoc.status ] ).isBefore( now )  ) {
+            while( orderDoc.status <= 2 && moment( orderDoc.statusUpdateDates[ orderDoc.status ] ).isBefore( now ) ) {
+                orderDoc.status += 1;
+            }
+            orderDoc.markModified('status');
+            await orderDoc.save();
+        }
+    })
+    
+    return respond.ok( res, orderDocs)
 }
 module.exports.update = async( req, res) => {
     const order_id = req.body.order_id
